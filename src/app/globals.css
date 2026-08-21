@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  
+  --card: #0a0a0a;
+  --card-foreground: #ffffff;
+  
+  --popover: #0a0a0a;
+  --popover-foreground: #ffffff;
+  
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  
+  --secondary: #1a1a1a;
+  --secondary-foreground: #ffffff;
+  
+  --muted: #1a1a1a;
+  --muted-foreground: #a3a3a3;
+  
+  --accent: #1a1a1a;
+  --accent-foreground: #ffffff;
+  
+  --destructive: #7f1d1d;
+  --destructive-foreground: #ffffff;
+  
+  --border: #262626;
+  --input: #262626;
+  --ring: #ffffff;
+  
+  --radius: 0.5rem;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Custom animations from prompt */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.duration-700 {
+  transition-duration: 700ms;
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
+}
+
+/* Backdrop blur */
+.backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+}
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+}
+
+/* Custom gradients */
+.bg-gradient-orbital {
+  background: linear-gradient(to bottom right, #6366f1, #3b82f6, #14b8a6);
+}
+
+/* Z-index utilities */
+.z-10 {
+  z-index: 10;
+}
+.z-50 {
+  z-index: 50;
+}
+.z-200 {
+  z-index: 200;
+}
+
+/* Custom shadows */
+.shadow-orbital {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Custom transforms */
+.scale-125 {
+  transform: scale(1.25);
+}
+.scale-150 {
+  transform: scale(1.5);
+}
+
+/* Opacity */
+.opacity-70 {
+  opacity: 0.7;
+}
+.opacity-50 {
+  opacity: 0.5;
+}
+
+/* Hero Section Specifics */
+.hero-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: #000;
+}
+.hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  width: 100%;
+}
+.hero-title {
+  font-size: 6rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: #a3a3a3;
+  letter-spacing: 0.05em;
+}
+.title-char {
+  display: inline-block;
+}
+.subtitle-line {
+  margin: 0.5rem 0;
+}
+.scroll-sections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  z-index: 20;
+}
+.content-section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+}
