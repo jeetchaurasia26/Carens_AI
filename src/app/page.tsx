@@ -33,8 +33,8 @@ export default function Home() {
       >
         <div className="container mx-auto px-6 flex justify-between items-center pointer-events-auto">
           <div className="flex items-center gap-3">
-            <Image src={logoImg} alt="Carens AI Logo" width={40} height={40} className="rounded-full border border-white/10" />
-            <div className="text-2xl font-black tracking-tighter uppercase">Carens AI</div>
+            <Image src={logoImg} alt="Careens AI Logo" width={40} height={40} className="rounded-full border border-white/10" />
+            <div className="text-2xl font-black tracking-tighter uppercase">Careens AI</div>
           </div>
           <div className="hidden md:flex gap-8 text-sm font-medium tracking-wide text-gray-400">
             <a href="#platform" className="hover:text-white transition-colors">Platform</a>

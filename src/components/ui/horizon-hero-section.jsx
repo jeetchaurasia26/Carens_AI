@@ -579,7 +579,7 @@ export const HorizonHeroSection = () => {
       {/* Main content */}
       <div className="hero-content cosmos-content">
         <h1 ref={titleRef} className="hero-title">
-          CARENS AI
+          CAREENS AI
         </h1>
         
         <div ref={subtitleRef} className="hero-subtitle cosmos-subtitle">
@@ -600,7 +600,7 @@ export const HorizonHeroSection = () => {
       <div className="scroll-sections" style={{ pointerEvents: 'none' }}>
        {[...Array(2)].map((_, i) => {
           const titles = {
-            0: 'CARENS AI',
+            0: 'CAREENS AI',
             1: 'SCALE',
             2: 'AUTOMATE'
           };

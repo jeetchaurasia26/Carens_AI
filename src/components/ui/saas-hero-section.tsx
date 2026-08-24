@@ -23,7 +23,7 @@ export function SaasHeroSection() {
           Behind Modern Lending
         </div>
         <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
-          Automate underwriting, collections, and operations with Carens AI.
+          Automate underwriting, collections, and operations with Careens AI.
         </div>
         <Button className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-8 py-6 text-lg font-bold">
           Request Demo
