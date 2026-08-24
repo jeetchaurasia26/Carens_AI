@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
@@ -64,10 +65,11 @@ export function HtmlContent() {
           }
         >
           <div className="w-full h-full bg-white flex flex-col p-1 md:p-2 rounded-xl relative overflow-hidden">
-            <img 
+            <Image 
               src="/dashboard.png" 
               alt="Admin Dashboard" 
-              className="w-full h-full object-cover object-top rounded-lg md:rounded-xl contrast-[1.05] saturate-[1.1] brightness-[1.02] drop-shadow-md" 
+              fill
+              className="object-cover object-top rounded-lg md:rounded-xl contrast-[1.05] saturate-[1.1] brightness-[1.02] drop-shadow-md" 
             />
           </div>
         </ContainerScroll>
