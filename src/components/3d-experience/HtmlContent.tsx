@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import dashboardImg from "../../../public/dashboard.png";
 import { motion } from "framer-motion";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
@@ -66,7 +67,7 @@ export function HtmlContent() {
         >
           <div className="w-full h-full bg-white flex flex-col p-1 md:p-2 rounded-xl relative overflow-hidden">
             <Image 
-              src="/dashboard.png" 
+              src={dashboardImg} 
               alt="Admin Dashboard" 
               fill
               className="object-cover object-top rounded-lg md:rounded-xl contrast-[1.05] saturate-[1.1] brightness-[1.02] drop-shadow-md" 

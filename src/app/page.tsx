@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import logoImg from "../../public/logo.jpg";
 import { motion } from "framer-motion";
 import { Experience } from "@/components/3d-experience/Experience";
 import { HtmlContent } from "@/components/3d-experience/HtmlContent";
@@ -32,7 +33,7 @@ export default function Home() {
       >
         <div className="container mx-auto px-6 flex justify-between items-center pointer-events-auto">
           <div className="flex items-center gap-3">
-            <Image src="/logo.jpg" alt="Carens AI Logo" width={40} height={40} className="rounded-full border border-white/10" />
+            <Image src={logoImg} alt="Carens AI Logo" width={40} height={40} className="rounded-full border border-white/10" />
             <div className="text-2xl font-black tracking-tighter uppercase">Carens AI</div>
           </div>
           <div className="hidden md:flex gap-8 text-sm font-medium tracking-wide text-gray-400">
