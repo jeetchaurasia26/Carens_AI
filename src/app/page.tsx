@@ -105,7 +105,10 @@ export default function Home() {
         }`}
       >
         <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="text-2xl font-bold tracking-tighter">CARENS AI</div>
+          <div className="flex items-center gap-3">
+            <img src="/logo.jpg" alt="Carens AI Logo" className="w-10 h-10 rounded-full border border-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.5)]" />
+            <div className="text-2xl font-bold tracking-tighter">CARENS AI</div>
+          </div>
           <div className={`hidden md:flex gap-8 text-sm font-medium ${isScrolled && isPastHero ? "text-slate-600" : "text-white/80"}`}>
             <a href="#platform" className="hover:text-indigo-600 transition-colors">Platform</a>
             <a href="#solutions" className="hover:text-indigo-600 transition-colors">Solutions</a>
