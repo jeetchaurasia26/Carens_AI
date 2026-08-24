@@ -23,6 +23,7 @@ export function HoverBorderGradient({
   } & React.HTMLAttributes<HTMLElement>
 >) {
   const [hovered, setHovered] = useState<boolean>(false);
+  const TagToUse = Tag as any;
   const [direction, setDirection] = useState<Direction>("TOP");
 
   const rotateDirection = (currentDirection: Direction): Direction => {
@@ -54,7 +55,7 @@ export function HoverBorderGradient({
   }, [hovered]);
 
   return (
-    <Tag
+    <TagToUse
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={cn(
@@ -90,6 +91,6 @@ export function HoverBorderGradient({
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
       <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[28px]" />
-    </Tag>
+    </TagToUse>
   );
 }
