@@ -35,6 +35,7 @@ export default function RadialOrbitalTimeline({
     x: 0,
     y: 0,
   });
+  const [radius, setRadius] = useState<number>(200);
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
@@ -101,6 +102,19 @@ export default function RadialOrbitalTimeline({
     };
   }, [autoRotate, viewMode]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setRadius(100);
+      } else {
+        setRadius(200);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const centerViewOnNode = (nodeId: number) => {
     if (viewMode !== "orbital" || !nodeRefs.current[nodeId]) return;
 
@@ -113,7 +127,6 @@ export default function RadialOrbitalTimeline({
 
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 200;
     const radian = (angle * Math.PI) / 180;
 
     const x = radius * Math.cos(radian) + centerOffset.x;
@@ -142,19 +155,19 @@ export default function RadialOrbitalTimeline({
   const getStatusStyles = (status: TimelineItem["status"]): string => {
     switch (status) {
       case "completed":
-        return "text-white bg-slate-900 border-slate-900";
+        return "text-black bg-white border-white";
       case "in-progress":
-        return "text-indigo-700 bg-indigo-100 border-indigo-200";
+        return "text-white bg-white/20 border-white";
       case "pending":
-        return "text-slate-500 bg-slate-100 border-slate-200";
+        return "text-white/50 bg-white/5 border-white/20";
       default:
-        return "text-slate-500 bg-slate-100 border-slate-200";
+        return "text-white/50 bg-white/5 border-white/20";
     }
   };
 
   return (
     <div
-      className="w-full h-screen flex flex-col items-center justify-center bg-transparent overflow-hidden"
+      className="w-full h-full min-h-[400px] md:h-screen flex flex-col items-center justify-center bg-transparent overflow-hidden"
       ref={containerRef}
       onClick={handleContainerClick}
     >
@@ -167,16 +180,18 @@ export default function RadialOrbitalTimeline({
             transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)`,
           }}
         >
-          <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 via-blue-500 to-teal-500 animate-pulse flex items-center justify-center z-10 shadow-lg shadow-indigo-200">
-            <div className="absolute w-20 h-20 rounded-full border border-indigo-200 animate-ping opacity-70"></div>
+          <div className="absolute w-24 h-24 rounded-full bg-white animate-pulse flex items-center justify-center z-10 shadow-[0_0_50px_rgba(255,255,255,1)]">
+            <div className="absolute w-32 h-32 rounded-full border-2 border-white/60 animate-ping opacity-80"></div>
             <div
-              className="absolute w-24 h-24 rounded-full border border-indigo-100 animate-ping opacity-50"
+              className="absolute w-40 h-40 rounded-full border border-white/30 animate-ping opacity-60"
               style={{ animationDelay: "0.5s" }}
             ></div>
-            <div className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-md"></div>
+            <div className="w-12 h-12 rounded-full bg-black shadow-inner flex items-center justify-center">
+              <div className="w-4 h-4 rounded-full bg-white animate-bounce"></div>
+            </div>
           </div>
 
-          <div className="absolute w-96 h-96 rounded-full border border-slate-200 border-dashed"></div>
+          <div className="absolute w-64 h-64 md:w-96 md:h-96 rounded-full border border-white/10 border-dashed"></div>
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
@@ -207,7 +222,7 @@ export default function RadialOrbitalTimeline({
                     isPulsing ? "animate-pulse duration-1000" : ""
                   }`}
                   style={{
-                    background: `radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0) 70%)`,
+                    background: `radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%)`,
                     width: `${item.energy * 0.5 + 40}px`,
                     height: `${item.energy * 0.5 + 40}px`,
                     left: `-${(item.energy * 0.5 + 40 - 40) / 2}px`,
@@ -217,43 +232,43 @@ export default function RadialOrbitalTimeline({
 
                 <div
                   className={`
-                  w-10 h-10 rounded-full flex items-center justify-center
+                  w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center
                   ${
                     isExpanded
-                      ? "bg-indigo-600 text-white"
+                      ? "bg-white text-black"
                       : isRelated
-                      ? "bg-indigo-50 text-indigo-600"
-                      : "bg-white text-slate-500"
+                      ? "bg-white/40 text-white"
+                      : "bg-black text-white"
                   }
                   border-2 
                   ${
                     isExpanded
-                      ? "border-indigo-400 shadow-lg shadow-indigo-200"
+                      ? "border-white shadow-[0_0_30px_rgba(255,255,255,1)]"
                       : isRelated
-                      ? "border-indigo-300 animate-pulse"
-                      : "border-slate-200"
+                      ? "border-white/80 animate-pulse"
+                      : "border-white/40 hover:border-white/80"
                   }
                   transition-all duration-300 transform
-                  ${isExpanded ? "scale-150" : ""}
+                  ${isExpanded ? "scale-150" : "hover:scale-110"}
                 `}
                 >
-                  <Icon size={16} />
+                  <Icon size={20} />
                 </div>
 
                 <div
                   className={`
-                  absolute top-12  whitespace-nowrap
-                  text-xs font-semibold tracking-wider
+                  absolute top-10 md:top-14 w-20 md:w-auto text-center md:whitespace-nowrap
+                  text-[9px] leading-tight md:text-sm font-semibold tracking-wider
                   transition-all duration-300
-                  ${isExpanded ? "text-slate-900 scale-125 font-bold" : "text-slate-500"}
+                  ${isExpanded ? "text-white scale-110 md:scale-125 font-bold drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] z-10" : "text-white/90 hover:text-white drop-shadow-md opacity-0 md:opacity-100 pointer-events-none"}
                 `}
                 >
                   {item.title}
                 </div>
 
                 {isExpanded && (
-                  <Card className="absolute top-20 left-1/2 -translate-x-1/2 w-64 bg-white/95 backdrop-blur-xl border-slate-200 shadow-2xl shadow-slate-200/50 overflow-visible z-50">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-slate-300"></div>
+                  <Card className="absolute top-16 md:top-20 left-1/2 -translate-x-1/2 w-[220px] md:w-64 bg-black/90 backdrop-blur-xl border-white/20 shadow-2xl shadow-black/50 overflow-visible z-50">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-white/50"></div>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-center">
                         <Badge
@@ -267,38 +282,38 @@ export default function RadialOrbitalTimeline({
                             ? "IN PROGRESS"
                             : "PENDING"}
                         </Badge>
-                        <span className="text-xs font-mono text-slate-400">
+                        <span className="text-xs font-mono text-white/40">
                           {item.date}
                         </span>
                       </div>
-                      <CardTitle className="text-sm mt-2 text-slate-900">
+                      <CardTitle className="text-sm mt-2 text-white">
                         {item.title}
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="text-xs text-slate-600">
+                    <CardContent className="text-xs text-white/70">
                       <p>{item.content}</p>
 
-                      <div className="mt-4 pt-3 border-t border-slate-100">
-                        <div className="flex justify-between items-center text-xs mb-1 text-slate-500">
+                      <div className="mt-4 pt-3 border-t border-white/10">
+                        <div className="flex justify-between items-center text-xs mb-1 text-white/50">
                           <span className="flex items-center font-medium">
-                            <Zap size={10} className="mr-1 text-indigo-500" />
+                            <Zap size={10} className="mr-1 text-white" />
                             Energy Level
                           </span>
-                          <span className="font-mono text-slate-700 font-semibold">{item.energy}%</span>
+                          <span className="font-mono text-white font-semibold">{item.energy}%</span>
                         </div>
-                        <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-indigo-500 to-teal-400"
+                            className="h-full bg-white"
                             style={{ width: `${item.energy}%` }}
                           ></div>
                         </div>
                       </div>
 
                       {item.relatedIds.length > 0 && (
-                        <div className="mt-4 pt-3 border-t border-slate-100">
+                        <div className="mt-4 pt-3 border-t border-white/10">
                           <div className="flex items-center mb-2">
-                            <Link size={10} className="text-slate-400 mr-1" />
-                            <h4 className="text-[10px] uppercase tracking-wider font-bold text-slate-500">
+                            <Link size={10} className="text-white/40 mr-1" />
+                            <h4 className="text-[10px] uppercase tracking-wider font-bold text-white/50">
                               Connected Nodes
                             </h4>
                           </div>
@@ -312,7 +327,7 @@ export default function RadialOrbitalTimeline({
                                   key={relatedId}
                                   variant="outline"
                                   size="sm"
-                                  className="flex items-center h-6 px-2 py-0 text-xs rounded-full border-slate-200 bg-slate-50 hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 hover:border-indigo-200 transition-all shadow-sm"
+                                  className="flex items-center h-6 px-2 py-0 text-xs rounded-full border-white/20 bg-white/5 hover:bg-white/20 text-white/70 hover:text-white transition-all shadow-sm"
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     toggleItem(relatedId);
@@ -321,7 +336,7 @@ export default function RadialOrbitalTimeline({
                                   {relatedItem?.title}
                                   <ArrowRight
                                     size={8}
-                                    className="ml-1 text-indigo-400"
+                                    className="ml-1 text-white"
                                   />
                                 </Button>
                               );
