@@ -37,9 +37,14 @@ export default function RadialOrbitalTimeline({
   });
   const [radius, setRadius] = useState<number>(200);
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === containerRef.current || e.target === orbitRef.current) {
@@ -193,7 +198,7 @@ export default function RadialOrbitalTimeline({
 
           <div className="absolute w-64 h-64 md:w-96 md:h-96 rounded-full border border-white/10 border-dashed"></div>
 
-          {timelineData.map((item, index) => {
+          {isMounted && timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
             const isExpanded = expandedItems[item.id];
             const isRelated = isRelatedToActive(item.id);
